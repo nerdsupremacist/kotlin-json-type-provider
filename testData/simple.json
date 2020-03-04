@@ -1,0 +1,11 @@
+{
+  "greeting" : "hello world",
+  "users" : [
+    {
+      "name" : true
+    },
+    {
+      "name" : "Paul"
+    }
+  ]
+}
