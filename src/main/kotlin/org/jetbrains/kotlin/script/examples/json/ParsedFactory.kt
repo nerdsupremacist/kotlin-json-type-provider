@@ -4,10 +4,13 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.File
 
-interface ParsedFactory<Value : Any>
+interface ParsedFactory<Value : Any> {
+    val baseDirectory: File?
+        get() = null
+}
 
 inline fun <reified T : Any> ParsedFactory<T>.parseFromFile(name: String): T {
-    return File(name).let(::parseFromFile)
+    return File(baseDirectory, name).let(::parseFromFile)
 }
 
 inline fun <reified T : Any> ParsedFactory<T>.parseFromFile(file: File): T {
@@ -20,7 +23,7 @@ inline fun <reified T : Any> ParsedFactory<T>.parse(string: String): T {
 }
 
 inline fun <reified T : Any> ParsedFactory<T>.parseListFromFile(name: String): List<T> {
-    return File(name).let(::parseListFromFile)
+    return File(baseDirectory, name).let(::parseListFromFile)
 }
 
 inline fun <reified T : Any> ParsedFactory<T>.parseListFromFile(file: File): List<T> {

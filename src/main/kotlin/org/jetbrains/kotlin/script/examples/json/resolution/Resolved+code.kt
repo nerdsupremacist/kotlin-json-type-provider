@@ -1,15 +1,16 @@
 package org.jetbrains.kotlin.script.examples.json.resolution
 
-fun Resolved.code(level: Int = 0): String? = when (this) {
-    is Resolved.Object -> definition.code(level = level)
+import java.io.File
+
+fun Resolved.code(baseDirectory: File?, isNested: Boolean = false): String? = when (this) {
+    is Resolved.Object -> definition.code(baseDirectory = baseDirectory, isNested = isNested)
     is Resolved.Standard -> null
-    is Resolved.Array -> resolved.code(level = level)
-    is Resolved.Optional -> resolved.code(level = level)
+    is Resolved.Array -> resolved.code(baseDirectory = baseDirectory, isNested = isNested)
+    is Resolved.Optional -> resolved.code(baseDirectory = baseDirectory, isNested = isNested)
     Resolved.Null -> null
 }
 
-
-fun Object.code(level: Int): String = buildString {
+fun Object.code(baseDirectory: File?, isNested: Boolean): String = buildString {
     val type = asType()
     val constructorProperties = properties
         .entries
@@ -26,14 +27,19 @@ fun Object.code(level: Int): String = buildString {
         appendln()
 
         for (type in nestedTypes) {
-            appendln(type.code(level = level + 1).prependIndent())
+            appendln(type.code(baseDirectory = baseDirectory, isNested = true).prependIndent())
         }
 
         appendln("}")
     }
 
-    if (level < 1) {
+    if (!isNested) {
         appendln()
-        append("val $name = object : ParsedFactory<${type.name}> {}")
+        append("val $name = object : ParsedFactory<${type.name}> {")
+        if (baseDirectory != null) {
+            appendln()
+            appendln("override val baseDirectory: File? = File(\"${baseDirectory.path}\")".prependIndent())
+        }
+        append("}")
     }
 }

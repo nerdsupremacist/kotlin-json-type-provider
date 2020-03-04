@@ -29,7 +29,7 @@ object Configurator : RefineScriptCompilationConfigurationHandler {
         require(resolved.map { it.asType().name }.isDistinct()) { "No types should be duplicated" }
 
         val sourceCode = resolved
-            .mapNotNull { it.code() }
+            .mapNotNull { it.code(baseDirectory = baseDirectory) }
             .map { resolvedCode ->
                 createTempFile(prefix = "JSONCodeGen", suffix = ".json.kts", directory = baseDirectory)
                     .apply { writeText(resolvedCode) }
