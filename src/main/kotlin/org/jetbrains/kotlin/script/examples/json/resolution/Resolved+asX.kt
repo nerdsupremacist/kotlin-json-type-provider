@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.script.examples.json.resolution
 
-fun Resolved.asObjectOrNull(): Object? = (this as? Resolved.Nested)?.nested
+fun Resolved.asObjectOrNull(): Object? = (this as? Resolved.Object)?.definition
 
 fun Resolved.asStandardTypeOrNull(): StandardType? = (this as? Resolved.Standard)?.type
 

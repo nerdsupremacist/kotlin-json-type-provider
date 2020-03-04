@@ -1,7 +1,7 @@
 package org.jetbrains.kotlin.script.examples.json.resolution
 
 fun Resolved.code(level: Int = 0): String? = when (this) {
-    is Resolved.Nested -> nested.code(level = level)
+    is Resolved.Object -> definition.code(level = level)
     is Resolved.Standard -> null
     is Resolved.Array -> resolved.code(level = level)
     is Resolved.Optional -> resolved.code(level = level)
@@ -9,7 +9,7 @@ fun Resolved.code(level: Int = 0): String? = when (this) {
 }
 
 
-fun Object.code(level: Int): String = kotlin.text.buildString {
+fun Object.code(level: Int): String = buildString {
     val type = asType()
     val constructorProperties = properties
         .entries
@@ -39,7 +39,7 @@ fun Object.code(level: Int): String = kotlin.text.buildString {
 }
 
 fun Resolved.underlyingType(): Resolved = when (this) {
-    is Resolved.Nested -> this
+    is Resolved.Object -> this
     is Resolved.Standard -> this
     is Resolved.Array -> resolved.underlyingType()
     is Resolved.Optional -> resolved.underlyingType()

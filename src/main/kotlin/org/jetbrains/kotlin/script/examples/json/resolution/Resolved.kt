@@ -1,14 +1,16 @@
 package org.jetbrains.kotlin.script.examples.json.resolution
 
+import org.jetbrains.kotlin.script.examples.json.resolution.Object as ObjectDefinition
+
 sealed class Resolved {
     abstract fun mergedWith(other: Resolved): Resolved
 
-    data class Nested(val nested: Object) : Resolved() {
+    data class Object(val definition: ObjectDefinition) : Resolved() {
         override fun mergedWith(other: Resolved): Resolved {
             if (other == Null) return optional()
             val otherObject = other.asObjectOrNull() ?: return StandardType.Any.asResolved()
 
-            return nested.mergedWith(otherObject).asResolved()
+            return definition.mergedWith(otherObject).asResolved()
         }
     }
 
