@@ -26,8 +26,8 @@ fun Object.code(baseDirectory: File?, isNested: Boolean): String = buildString {
         appendln(" {")
         appendln()
 
-        for (type in nestedTypes) {
-            appendln(type.code(baseDirectory = baseDirectory, isNested = true).prependIndent())
+        for (nestedType in nestedTypes) {
+            appendln(nestedType.code(baseDirectory = baseDirectory, isNested = true).prependIndent())
         }
 
         appendln("}")

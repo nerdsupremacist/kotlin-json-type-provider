@@ -37,7 +37,7 @@ sealed class Resolved {
     data class Optional(val resolved: Resolved) : Resolved() {
         override fun mergedWith(other: Resolved): Resolved {
             if (other == Null) return this
-            val otherResolved = other.asOptionalOfResolvedOrNull() ?: return StandardType.Any.asResolved()
+            val otherResolved = other.asOptionalOfResolvedOrNull() ?: other
 
             return resolved.mergedWith(otherResolved).optional()
         }
