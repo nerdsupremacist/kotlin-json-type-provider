@@ -37,11 +37,3 @@ fun Object.code(level: Int): String = buildString {
         append("val $name = object : ParsedFactory<${type.name}> {}")
     }
 }
-
-fun Resolved.underlyingType(): Resolved = when (this) {
-    is Resolved.Object -> this
-    is Resolved.Standard -> this
-    is Resolved.Array -> resolved.underlyingType()
-    is Resolved.Optional -> resolved.underlyingType()
-    Resolved.Null -> this
-}
