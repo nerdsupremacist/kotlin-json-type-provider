@@ -8,7 +8,7 @@ Use `@Import` with a JSON file and it will create all the types needed to use th
 ```kotlin
 @file:Import("sample.json") // { "greeting" : "Hello World!" }
 
-val parsed = Sample.parseSingleFromFile("sample.json")
+val parsed = Sample.parseFromFile("sample.json")
 print(parsed.greeting) // "Hello World!"
 ```
 

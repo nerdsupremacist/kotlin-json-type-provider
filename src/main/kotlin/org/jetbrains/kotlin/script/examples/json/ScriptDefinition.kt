@@ -11,8 +11,8 @@ object ScriptDefinition : ScriptCompilationConfiguration({
         ParsedFactory::class
     )
     defaultImports(
-        "org.jetbrains.kotlin.script.examples.jsonTypeProviderMainKts.parseSingle",
-        "org.jetbrains.kotlin.script.examples.jsonTypeProviderMainKts.parseSingleFromFile",
+        "org.jetbrains.kotlin.script.examples.jsonTypeProviderMainKts.parse",
+        "org.jetbrains.kotlin.script.examples.jsonTypeProviderMainKts.parseFromFile",
         "org.jetbrains.kotlin.script.examples.jsonTypeProviderMainKts.parseList",
         "org.jetbrains.kotlin.script.examples.jsonTypeProviderMainKts.parseListFromFile"
     )

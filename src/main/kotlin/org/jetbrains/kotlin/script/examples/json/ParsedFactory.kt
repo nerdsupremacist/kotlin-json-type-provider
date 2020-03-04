@@ -6,15 +6,15 @@ import java.io.File
 
 interface ParsedFactory<Value : Any>
 
-inline fun <reified T : Any> ParsedFactory<T>.parseSingleFromFile(name: String): T {
-    return File(name).let(::parseSingleFromFile)
+inline fun <reified T : Any> ParsedFactory<T>.parseFromFile(name: String): T {
+    return File(name).let(::parseFromFile)
 }
 
-inline fun <reified T : Any> ParsedFactory<T>.parseSingleFromFile(file: File): T {
-    return file.inputStream().reader().readText().let(::parseSingle)
+inline fun <reified T : Any> ParsedFactory<T>.parseFromFile(file: File): T {
+    return file.inputStream().reader().readText().let(::parse)
 }
 
-inline fun <reified T : Any> ParsedFactory<T>.parseSingle(string: String): T {
+inline fun <reified T : Any> ParsedFactory<T>.parse(string: String): T {
     val mapper = jacksonObjectMapper()
     return mapper.readValue(string)
 }
