@@ -5,14 +5,14 @@ fun String.toCamelCase(): String {
     if (toUpperCase() == this) return toLowerCase()
 
     val parts = parts
-    return parts.first().toLowerCase() + parts.drop(1).joinToString { it.toLowerCase().capitalize() }
+    return parts.first().toLowerCase() + parts.drop(1).joinToString("") { it.toLowerCase().capitalize() }
 }
 
 fun String.toUpperCamelCase(): String {
     if (isEmpty()) return this
     if (toUpperCase() == this) return capitalize()
 
-    return parts.joinToString { it.capitalize() }
+    return parts.joinToString("") { it.capitalize() }
 }
 
 private val lowerToCapitalSplit = Regex("([a-z])([A-Z])")
