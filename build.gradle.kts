@@ -21,6 +21,14 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.+")
 }
 
+sourceSets {
+    test {
+        dependencies {
+            testImplementation("junit:junit:4.12")
+        }
+    }
+}
+
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "1.8"
