@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.script.examples.json.resolution.JSONProvider
 import org.jetbrains.kotlin.script.examples.json.resolution.asType
 import org.jetbrains.kotlin.script.examples.json.resolution.code
 import org.jetbrains.kotlin.script.examples.json.resolution.resolve
-import org.jetbrains.kotlin.script.examples.json.resolution.utils.isDistinct
 import kotlin.script.experimental.api.*
 import kotlin.script.experimental.host.FileBasedScriptSource
 import kotlin.script.experimental.host.toScriptSource
