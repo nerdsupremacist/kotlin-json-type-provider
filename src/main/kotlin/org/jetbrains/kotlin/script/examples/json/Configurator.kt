@@ -27,7 +27,13 @@ object Configurator : RefineScriptCompilationConfigurationHandler {
 
         val resolved = annotations.map { it.resolve(baseDirectory = baseDirectory) }
 
-        require(resolved.map { it.asType().name }.isDistinct()) { "No types should be duplicated" }
+        resolved
+            .groupBy { it.asType().name }
+            .filterValues { it.count() > 1 }
+            .takeIf { it.isNotEmpty() }
+            ?.keys
+            ?.map { "Multiple definitions of `$it`".asErrorDiagnostics() }
+            ?.let { return makeFailureResult(it) }
 
         val sourceCode = resolved
             .mapNotNull { it.code(baseDirectory = baseDirectory) }

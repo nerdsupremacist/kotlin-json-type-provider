@@ -17,6 +17,15 @@ import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromT
 class ScriptTest {
 
     @Test
+    fun `Importing two clashing files fails`() {
+        val res = evalFile("name-clash.json.kts")
+        Assert.assertTrue(res is ResultWithDiagnostics.Failure)
+
+        val error = res.reports.first { it.severity == ScriptDiagnostic.Severity.ERROR }
+        Assert.assertEquals("Multiple definitions of `SimpleImpl`", error.message)
+    }
+
+    @Test
     fun `Reading greeting from simple outputs hello world`() {
         val out = captureOut {
             val res = evalFile("simple.json.kts")
