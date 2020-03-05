@@ -1,10 +1,10 @@
 package org.jetbrains.kotlin.script.examples.json
 
+import org.jetbrains.kotlin.script.examples.json.resolution.JSONProvider
 import org.jetbrains.kotlin.script.examples.json.resolution.asType
 import org.jetbrains.kotlin.script.examples.json.resolution.code
 import org.jetbrains.kotlin.script.examples.json.resolution.resolve
 import org.jetbrains.kotlin.script.examples.json.resolution.utils.isDistinct
-import org.jetbrains.kotlin.script.util.Import
 import kotlin.script.experimental.api.*
 import kotlin.script.experimental.host.FileBasedScriptSource
 import kotlin.script.experimental.host.toScriptSource
@@ -19,13 +19,13 @@ object Configurator : RefineScriptCompilationConfigurationHandler {
             ?.get(ScriptCollectedData.foundAnnotations)
             ?.mapNotNull { annotation ->
                 when (annotation) {
-                    is Import -> annotation
+                    is JSONProvider -> annotation
                     else -> null
                 }
             }
             ?.takeIf { it.isNotEmpty() } ?: return context.compilationConfiguration.asSuccess()
 
-        val resolved = annotations.flatMap { it.resolve(baseDirectory = baseDirectory) }
+        val resolved = annotations.map { it.resolve(baseDirectory = baseDirectory) }
 
         require(resolved.map { it.asType().name }.isDistinct()) { "No types should be duplicated" }
 

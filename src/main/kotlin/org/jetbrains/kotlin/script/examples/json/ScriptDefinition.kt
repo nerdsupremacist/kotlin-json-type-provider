@@ -1,5 +1,6 @@
 package org.jetbrains.kotlin.script.examples.json
 
+import org.jetbrains.kotlin.script.examples.json.resolution.JSONProvider
 import org.jetbrains.kotlin.script.util.Import
 import java.io.File
 import kotlin.script.experimental.api.*
@@ -9,7 +10,7 @@ import kotlin.script.experimental.jvm.jvm
 object ScriptDefinition : ScriptCompilationConfiguration({
     defaultImports(
         File::class,
-        Import::class,
+        JSONProvider::class,
         ParsedFactory::class
     )
     defaultImports(
@@ -24,7 +25,7 @@ object ScriptDefinition : ScriptCompilationConfiguration({
     }
 
     refineConfiguration {
-        onAnnotations(Import::class, handler = Configurator)
+        onAnnotations(JSONProvider::class, handler = Configurator)
     }
 
     ide {

@@ -8,11 +8,9 @@ import java.io.File
 
 //region Resolve an Import
 
-fun Import.resolve(baseDirectory: File?): List<Resolved> {
-    return paths.map { path ->
-        val file = baseDirectory?.resolve(path) ?: File(path)
-        file.json().resolve(typeName = file.nameWithoutExtension)
-    }
+fun JSONProvider.resolve(baseDirectory: File?): Resolved {
+    val file = baseDirectory?.resolve(path) ?: File(path)
+    return file.json().resolve(typeName = file.nameWithoutExtension)
 }
 
 //endregion
