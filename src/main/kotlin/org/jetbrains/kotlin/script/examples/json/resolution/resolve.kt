@@ -10,7 +10,8 @@ import java.io.File
 
 fun JSONProvider.resolve(baseDirectory: File?): Resolved {
     val file = baseDirectory?.resolve(path)?.takeIf { it.exists() } ?: File(path)
-    return file.json().resolve(typeName = file.nameWithoutExtension)
+    val typeName = typeName.takeIf { it.isNotBlank() } ?: file.nameWithoutExtension
+    return file.json().resolve(typeName = typeName)
 }
 
 //endregion

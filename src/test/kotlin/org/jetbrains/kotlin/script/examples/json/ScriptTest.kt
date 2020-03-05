@@ -17,6 +17,16 @@ import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromT
 class ScriptTest {
 
     @Test
+    fun `Reading greeting from simple outputs hello world`() {
+        val out = captureOut {
+            val res = evalFile("simple.json.kts")
+            assertSucceeded(res)
+        }
+
+        Assert.assertEquals("hello world", out)
+    }
+
+    @Test
     fun `Importing two clashing files fails`() {
         val res = evalFile("name-clash.json.kts")
         Assert.assertTrue(res is ResultWithDiagnostics.Failure)
@@ -26,13 +36,14 @@ class ScriptTest {
     }
 
     @Test
-    fun `Reading greeting from simple outputs hello world`() {
+    fun `Specifying a Type Name avoids clash`() {
         val out = captureOut {
-            val res = evalFile("simple.json.kts")
+            val res = evalFile("name-clash-avoided.json.kts")
             assertSucceeded(res)
-        }
+        }.lines()
 
-        Assert.assertEquals("hello world", out)
+        Assert.assertEquals("hello world", out[0])
+        Assert.assertEquals("info", out[1])
     }
 
     @Test
