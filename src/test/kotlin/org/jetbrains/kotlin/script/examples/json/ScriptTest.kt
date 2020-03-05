@@ -27,6 +27,16 @@ class ScriptTest {
     }
 
     @Test
+    fun `Importing the same file twice is allowed`() {
+        val out = captureOut {
+            val res = evalFile("imported-twice.json.kts")
+            assertSucceeded(res)
+        }
+
+        Assert.assertEquals("hello world", out)
+    }
+
+    @Test
     fun `Importing two clashing files fails`() {
         val res = evalFile("name-clash.json.kts")
         Assert.assertTrue(res is ResultWithDiagnostics.Failure)
