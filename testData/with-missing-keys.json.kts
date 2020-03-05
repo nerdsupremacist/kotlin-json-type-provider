@@ -1,5 +1,5 @@
 
-@file:Import("with-missing-keys.json")
+@file:JSONProvider("with-missing-keys.json")
 
 import kotlin.reflect.full.memberProperties
 

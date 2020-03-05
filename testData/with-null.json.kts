@@ -1,5 +1,5 @@
 
-@file:Import("with-null.json")
+@file:JSONProvider("with-null.json")
 
 import kotlin.reflect.full.memberProperties
 

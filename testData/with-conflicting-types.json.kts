@@ -1,5 +1,5 @@
 
-@file:Import("with-conflicting-types.json")
+@file:JSONProvider("with-conflicting-types.json")
 
 import kotlin.reflect.full.memberProperties
 
