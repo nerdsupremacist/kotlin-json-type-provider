@@ -9,7 +9,7 @@ import java.io.File
 //region Resolve an Import
 
 fun JSONProvider.resolve(baseDirectory: File?): Resolved {
-    val file = baseDirectory?.resolve(path) ?: File(path)
+    val file = baseDirectory?.resolve(path)?.takeIf { it.exists() } ?: File(path)
     return file.json().resolve(typeName = file.nameWithoutExtension)
 }
 
