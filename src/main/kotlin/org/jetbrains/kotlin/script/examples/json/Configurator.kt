@@ -2,7 +2,7 @@ package org.jetbrains.kotlin.script.examples.json
 
 import org.jetbrains.kotlin.script.examples.json.resolution.asType
 import org.jetbrains.kotlin.script.examples.json.resolution.code
-import org.jetbrains.kotlin.script.examples.json.resolution.resolve.resolve
+import org.jetbrains.kotlin.script.examples.json.resolution.resolve
 import org.jetbrains.kotlin.script.examples.json.resolution.utils.isDistinct
 import org.jetbrains.kotlin.script.util.Import
 import kotlin.script.experimental.api.*
@@ -13,6 +13,7 @@ object Configurator : RefineScriptCompilationConfigurationHandler {
 
     override fun invoke(context: ScriptConfigurationRefinementContext): ResultWithDiagnostics<ScriptCompilationConfiguration> {
         val baseDirectory = (context.script as? FileBasedScriptSource)?.file?.parentFile
+
         val annotations = context
             .collectedData
             ?.get(ScriptCollectedData.foundAnnotations)
