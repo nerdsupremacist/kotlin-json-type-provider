@@ -24,10 +24,11 @@ object Configurator : RefineScriptCompilationConfigurationHandler {
             }
             ?.takeIf { it.isNotEmpty() } ?: return context.compilationConfiguration.asSuccess()
 
-        val resolved = annotations.map { it.resolve(baseDirectory = baseDirectory) }
+        val resolved = annotations.distinct().map { it.resolve(baseDirectory = baseDirectory) }
 
         resolved
             .groupBy { it.asType().name }
+            .mapValues { it.value.distinct() }
             .filterValues { it.count() > 1 }
             .takeIf { it.isNotEmpty() }
             ?.keys
